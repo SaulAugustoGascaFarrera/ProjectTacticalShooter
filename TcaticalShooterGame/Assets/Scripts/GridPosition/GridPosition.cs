@@ -16,9 +16,42 @@ public struct GridPosition
     }
 
 
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
     public override string ToString()
     {
         return $"x: {x},z: {z}";
+    }
+
+    public static bool operator ==(GridPosition a, GridPosition b)
+    {
+
+        return a.x == b.x && a.z == b.z;
+    }
+
+    public static bool operator !=(GridPosition a, GridPosition b)
+    {
+
+        return !(a == b);
+    }
+
+
+    public static GridPosition operator +(GridPosition a, GridPosition b)
+    {
+        return new GridPosition(a.x + b.x, a.z + b.z);
+    }
+
+    public static GridPosition operator -(GridPosition a, GridPosition b)
+    {
+        return new GridPosition(a.x - b.x, a.z - b.z);
     }
 
 }
