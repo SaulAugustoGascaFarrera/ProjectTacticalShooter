@@ -41,7 +41,16 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (TryGetUnitSelection()) return;
 
-        Debug.Log("ya podrias kmovberse wey");
+        GridPosition gridPosition = LevelGrid.Instance.GetGridPosition(MouseManager.Instance.GetMousePosition());
+
+        //if (!LevelGrid.Instance.IsValidGridPosition(gridPosition)) return;
+
+        if(selectedUnit.GetMoveActions().IsValidActionAtGridPosition(gridPosition))
+        {
+            selectedUnit.GetMoveActions().Move(gridPosition);
+        }
+        
+
     }
 
     // Update is called once per frame

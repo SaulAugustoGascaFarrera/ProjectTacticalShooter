@@ -303,6 +303,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3693501151570618548, guid: d58d5301949bfea44a1b18cb73517bf3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3967424655734146005, guid: d58d5301949bfea44a1b18cb73517bf3, type: 3}
       propertyPath: gameInput
       value: 
