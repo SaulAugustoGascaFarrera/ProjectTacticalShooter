@@ -17,6 +17,9 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private GameInput gameInput;
     [SerializeField] private Unit selectedUnit;
 
+
+    private bool isBusy;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,8 +40,26 @@ public class UnitActionSystem : MonoBehaviour
         gameInput.OnUnitMove += GameInput_OnUnitMove;
     }
 
+    private void Update()
+    {
+        //if (TryGetUnitSelection()) return;
+
+        if (isBusy) return;
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            SetBusy();
+
+            selectedUnit.GetSpinAction().Spin(ClearBusy);
+
+        }
+    }
+
     private void GameInput_OnUnitMove(object sender, EventArgs e)
     {
+
+        if (isBusy) return;
+
         if (TryGetUnitSelection()) return;
 
         GridPosition gridPosition = LevelGrid.Instance.GetGridPosition(MouseManager.Instance.GetMousePosition());
@@ -47,15 +68,13 @@ public class UnitActionSystem : MonoBehaviour
 
         if(selectedUnit.GetMoveActions().IsValidActionAtGridPosition(gridPosition))
         {
-            selectedUnit.GetMoveActions().Move(gridPosition);
+            selectedUnit.GetMoveActions().Move(gridPosition,ClearBusy);
+
+            SetBusy();
         }
+
         
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        
 
     }
 
@@ -88,6 +107,16 @@ public class UnitActionSystem : MonoBehaviour
     public Unit GetSelectedUnit()
     {
         return selectedUnit;    
+    }
+
+    public void SetBusy()
+    {
+        isBusy = true;  
+    }
+
+    public void ClearBusy()
+    {
+        isBusy = false;
     }
 
 }
